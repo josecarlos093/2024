@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPMONITOR - Lista de Salas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f5f6fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #4e73df;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #4e73df;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-header {
+            background-color: #4e73df;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0;
+        }
+        .temp-high {
+            color: #e74a3b;
+            font-weight: bold;
+        }
+        .temp-low {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .image-left {
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">TEMPMONITOR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}">tela inicial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Contato' %}">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Tipo_Sensor' %}">Tipo De Sensor</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'sala' %}">Sala</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Lista de Salas</h1>
+            <img src="{% static 'images/images.jpg' %}" width="100" alt="Logo TempMonitor" class="image-right float-end">
+        </div>
+        <div class="card">
+            <div class="card-header">Informações das Salas</div>
+            <div class="table-responsive">
+                <table class="table table-hover text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sala</th>
+                            <th>Temperatura</th>
+                            <th>Data e Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for todo in TempMonitor %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ todo.name }}</td>
+                            <td>
+                                <span class="
+                                    {% if todo.temperature >= 21 %}
+                                        temp-high
+                                    {% else %}
+                                        temp-low
+                                    {% endif %}
+                                ">
+                                    {{ todo.temperature|floatformat:0 }}°C
+                                </span>
+                            </td>
+                            <td>{{ todo.data_e_hora|date:"H:i:s - d/m/Y" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table> 
+    </main>
+    <div class="d-flex justify-content-center align-items-center mt-2">
+        <img src="{% static 'images/images.png' %}" width="95" alt="Logo TempMonitor">
+        <div class="mx-4">
+            <p><strong>QR Code é para acessar o app no seu celular, mas tem que estar na mesma rede</strong></p>
+        </div>
+        <img src="{% static 'images/Cliente.png' %}" width="110" alt="Logo para compartilhar o app">
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Exclusão do Sensor</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar Estilizada */
+        .navbar {
+            background-color: #4e73df;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* Estilo do nome do app */
+        .navbar-brand {
+            font-weight: bold;
+            color: white;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 40px; /* Espaçamento à esquerda */
+            text-decoration: none; /* Removido sublinhado */
+        }
+
+        .navbar-brand:hover {
+            color: #d1d8e0;
+        }
+
+        /* Estilo do Título Principal */
+        h1 {
+            font-size: 2.5rem;
+            color: #4e73df;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        /* Estilo do Container Principal */
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: none; /* Removido box-shadow */
+            margin-top: 100px; /* Distância para o cabeçalho fixo */
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px); /* Efeito de elevação */
+        }
+
+        h2 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Estilos para o título com quadrado vermelho claro */
+        .warning {
+            font-size: 22px;
+            color: black; /* Texto preto */
+            background-color: #f8d7da; /* Fundo vermelho claro */
+            border: 2px solid #f5c6cb; /* Borda vermelho claro */
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo dos Botões */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Botão de Exclusão */
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Botão de Cancelamento */
+        .btn-cancel {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        /* Estilos para o Formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">TEMPMONITOR</a>
+        </nav>
+    <div class="container py-5">
+        <h1>Excluir Tipo de Sensor</h1>
+         <!-- Conteúdo Principal -->
+        <div class="warning">Tem certeza de que deseja excluir o sensor?</div>
+        <div class="message">
+            <strong>{{ tipo_sensor.name }}</strong>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete">SIM, EXCLUIR</button>
+            <a href="{% url 'Tipo_Sensor' %}" class="btn btn-cancel">CANCELAR</a>
+        </form>
+    </div>
+</body>
+</html>
